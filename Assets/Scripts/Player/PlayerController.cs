@@ -8,9 +8,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Respawn Settings")]
-    [SerializeField] private Transform respawnPoint; // Where the player should respawn
-    [SerializeField] private float respawnDelay = 3f; // Delay before respawn
-    [SerializeField] private float waterDeathDelay = 5f; // Delay before dying in water
+    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private float respawnDelay = 3f;
+    [SerializeField] private float waterDeathDelay = 5f;
 
     [Header("Movement Settings")]
     public float walkSpeed = 4f;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private bool wasGroundedLastFrame = false;
-    private bool isDead = false; // Prevents movement when dead
+    private bool isDead = false;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
         if (groundCheck == null)
         {
-            Debug.LogWarning("GroundCheck was not assigned! Creating one automatically under the player.");
+            Debug.LogWarning("GroundCheck not assigned! Creating one automatically.");
             GameObject gc = new GameObject("GroundCheck");
             gc.transform.parent = transform;
             gc.transform.localPosition = new Vector3(0f, -0.5f, 0f);
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return; // Stop input if dead
+        if (isDead) return;
 
         CheckIfGrounded();
 
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Player attack!");
+            Debug.Log("🔪 Player attack animation would play here.");
         }
     }
 
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
         if (!wasGroundedLastFrame && groundedNow)
         {
-            Debug.Log("Player landed on the ground.");
+            Debug.Log("✅ Player landed (would play 'Land' animation).");
             jumpCount = 0;
         }
 
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         jumpCount++;
-        Debug.Log("Player jumped! Jump count: " + jumpCount);
+        Debug.Log("🦘 Player jumped! Jump count: " + jumpCount + " (would play 'Jump' animation).");
     }
 
     void OnDrawGizmosSelected()
@@ -127,14 +127,38 @@ public class PlayerController : MonoBehaviour
     {
         if (obj.CompareTag("Death"))
         {
-            Debug.Log("Player hit a death collider! Respawning...");
+            Debug.Log("💀 Player hit a death collider! (would play 'Die' animation).");
             StartCoroutine(RespawnAfterDelay(respawnDelay, "Player died!"));
         }
         else if (obj.CompareTag("Water"))
         {
-            Debug.Log("Player touched water! Will die in " + waterDeathDelay + " seconds...");
-            StartCoroutine(RespawnAfterDelay(waterDeathDelay, "Player drowned!"));
+            Debug.Log("🌊 Player touched water! (would play 'Struggle' animation).");
+            StartCoroutine(WaterDeathSequence());
         }
+    }
+
+    private IEnumerator WaterDeathSequence()
+    {
+        isDead = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+        Debug.Log("🎥 Animation Trigger: Struggle in water");
+
+        yield return new WaitForSeconds(waterDeathDelay);
+
+        Debug.Log("🎥 Animation Trigger: Drowning");
+
+        sr.enabled = false;
+
+        yield return new WaitForSeconds(respawnDelay);
+
+        transform.position = respawnPoint.position;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        sr.enabled = true;
+
+        isDead = false;
+        Debug.Log("🔄 Player respawned!");
     }
 
     private IEnumerator RespawnAfterDelay(float delay, string deathMessage)
@@ -143,7 +167,8 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
 
-        animator.SetTrigger("Die");
+        Debug.Log("🎥 Animation Trigger: Die");
+
         Debug.Log(deathMessage);
 
         sr.enabled = false;
@@ -155,6 +180,6 @@ public class PlayerController : MonoBehaviour
         sr.enabled = true;
 
         isDead = false;
-        Debug.Log("Player respawned!");
+        Debug.Log("🔄 Player respawned!");
     }
 }

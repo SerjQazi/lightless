@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 513351424}
   - component: {fileID: 513351423}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: TheRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8627,7 +8627,7 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1027648192}
   - {fileID: 513351424}
+  - {fileID: 712898408}
   - {fileID: 1409637416}
   - {fileID: 262204728}
   - {fileID: 1749408160}
-  - {fileID: 712898408}
