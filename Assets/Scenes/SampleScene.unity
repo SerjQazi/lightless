@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65056585}
   - component: {fileID: 65056586}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 71184308}
   - component: {fileID: 71184309}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98201975}
   - component: {fileID: 98201976}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 123778842}
   - component: {fileID: 123778843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 168411397}
   - component: {fileID: 168411398}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 205925410}
   - component: {fileID: 205925411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 323219838}
   - component: {fileID: 323219839}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339201301}
   - component: {fileID: 339201302}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -866,7 +866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 379565697}
   - component: {fileID: 379565698}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -944,7 +944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 454418069}
   - component: {fileID: 454418070}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1275,11 +1275,11 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.73, y: 1.3499999, z: -10}
+  m_LocalPosition: {x: 1.8450003, y: 0.16699994, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1409637416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &520756773
 GameObject:
@@ -1291,7 +1291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520756774}
   - component: {fileID: 520756775}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1369,7 +1369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 554045172}
   - component: {fileID: 554045173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1531,7 +1531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715178914}
   - component: {fileID: 715178915}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1609,7 +1609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 774970919}
   - component: {fileID: 774970920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1765,7 +1765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876201923}
   - component: {fileID: 876201924}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1843,7 +1843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920872569}
   - component: {fileID: 920872570}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2036,7 +2036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 975679577}
   - component: {fileID: 975679578}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2225,7 +2225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105414044}
   - component: {fileID: 1105414045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2303,7 +2303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1114992921}
   - component: {fileID: 1114992922}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2381,7 +2381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1169693731}
   - component: {fileID: 1169693732}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2459,7 +2459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1207909060}
   - component: {fileID: 1207909061}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2771,7 +2771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1328783255}
   - component: {fileID: 1328783256}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2849,7 +2849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1365714755}
   - component: {fileID: 1365714756}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3007,7 +3007,8 @@ GameObject:
   - component: {fileID: 1409637415}
   - component: {fileID: 1409637414}
   - component: {fileID: 1409637413}
-  - component: {fileID: 1409637412}
+  - component: {fileID: 1409637417}
+  - component: {fileID: 1409637418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3015,18 +3016,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1409637412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409637411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1fe506c285cf94cb0702c4a5a82a4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &1409637413
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3155,12 +3144,58 @@ Transform:
   m_GameObject: {fileID: 1409637411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.575, y: 1.183, z: 0}
+  m_LocalPosition: {x: 90.7, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 519420032}
+  - {fileID: 1808416592}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1409637417
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409637411}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1409637418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409637411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1fe506c285cf94cb0702c4a5a82a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 4
+  runSpeed: 6
+  jumpForce: 8
+  jumpLimit: 2
+  groundCheck: {fileID: 1808416592}
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  isGrounded: 0
 --- !u!1 &1415111116
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,7 +3206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1415111117}
   - component: {fileID: 1415111118}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3248,7 +3283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1538160026}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PLATFORMS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3373,7 +3408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544334129}
   - component: {fileID: 1544334130}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3451,7 +3486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1557577270}
   - component: {fileID: 1557577271}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3507,7 +3542,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 12.9159355, y: 1.0759525}
+  m_Offset: {x: 12.9159355, y: 1.1519375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3517,7 +3552,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 12.741081, y: 0.696661}
+  m_Size: {x: 12.741081, y: 0.8486309}
   m_EdgeRadius: 0
 --- !u!1 &1589177690
 GameObject:
@@ -3529,7 +3564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589177691}
   - component: {fileID: 1589177692}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3694,7 +3729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1749408160}
   - component: {fileID: 1749408159}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3773,7 +3808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794438046}
   - component: {fileID: 1794438047}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3841,6 +3876,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 7.0776443, y: 0.3659501}
   m_EdgeRadius: 0
+--- !u!1 &1808416591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808416592}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1808416592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808416591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.475, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1409637416}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1835663771
 GameObject:
   m_ObjectHideFlags: 0
@@ -3850,7 +3916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1835663772}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GROUND
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3897,7 +3963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1886161792}
   - component: {fileID: 1886161793}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Swing (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3975,7 +4041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1915327862}
   - component: {fileID: 1915327863}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4726,7 +4792,7 @@ GameObject:
   - component: {fileID: 2000974278}
   - component: {fileID: 2000974277}
   - component: {fileID: 2000974280}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8524,7 +8590,6 @@ TilemapCollider2D:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1027648192}
   - {fileID: 513351424}
