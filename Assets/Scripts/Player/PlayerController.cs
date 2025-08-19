@@ -67,9 +67,15 @@ public class PlayerController : MonoBehaviour
         else if (hValue > 0) sr.flipX = false;
 
         if (Input.GetKey(KeyCode.LeftShift))
+        {
             currentSpeed = runSpeed;
+            animator.SetBool("isRolling", true);
+        }
         else
+        {
             currentSpeed = walkSpeed;
+            animator.SetBool("isRolling", false);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < jumpLimit)
         {
@@ -79,7 +85,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("🔪 Player attack animation would play here.");
+            animator.SetBool("attack", true); // Trigger the attack animation
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            animator.SetBool("attack", false); // Trigger the shoot animation
+        }
+
+        // set horizontal movement animation
+        animator.SetFloat("hValue", Mathf.Abs(hValue));
+        // set grounded animation state
+        animator.SetBool("isGrounded", isGrounded);
     }
 
     void CheckIfGrounded()
