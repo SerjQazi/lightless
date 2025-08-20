@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
         CheckIfGrounded();
 
         float hValue = Input.GetAxisRaw("Horizontal");
+        float vValue = Input.GetAxisRaw("Vertical");
+
         rb.linearVelocity = new Vector2(hValue * currentSpeed, rb.linearVelocity.y);
 
         if (hValue < 0) sr.flipX = true;
@@ -92,32 +94,69 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("attack", false); // Trigger the shoot animation
         }
 
-        // set horizontal movement animation
+        // set horizontal and vertical movement animation
         animator.SetFloat("hValue", Mathf.Abs(hValue));
+        animator.SetFloat("vValue", rb.linearVelocity.y);
         // set grounded animation state
         animator.SetBool("isGrounded", isGrounded);
     }
 
+    //void CheckIfGrounded()
+    //{
+    //    bool groundedNow = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    //    isGrounded = groundedNow;
+
+    //    if (!wasGroundedLastFrame && groundedNow)
+    //    {
+    //        Debug.Log("✅ Player landed (would play 'Land' animation).");
+    //        jumpCount = 0;
+    //    }
+
+    //    wasGroundedLastFrame = groundedNow;
+    //}
     void CheckIfGrounded()
     {
         bool groundedNow = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         isGrounded = groundedNow;
 
+        animator.SetBool("isGrounded", groundedNow);
+
         if (!wasGroundedLastFrame && groundedNow)
         {
-            Debug.Log("✅ Player landed (would play 'Land' animation).");
+            Debug.Log("✅ Player landed (would play 'Land' animation if added).");
             jumpCount = 0;
         }
 
         wasGroundedLastFrame = groundedNow;
     }
 
+
+    //void Jump()
+    //{
+    //    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+    //    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    //    jumpCount++;
+    //    Debug.Log("🦘 Player jumped! Jump count: " + jumpCount + " (would play 'Jump' animation).");
+    //}
+
     void Jump()
     {
+        // Reset vertical velocity before applying jump force
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
         jumpCount++;
-        Debug.Log("🦘 Player jumped! Jump count: " + jumpCount + " (would play 'Jump' animation).");
+
+        if (jumpCount == 1)
+        {
+            animator.SetTrigger("Jump");
+            Debug.Log("🦘 Normal Jump animation triggered.");
+        }
+        else if (jumpCount == 2)
+        {
+            animator.SetTrigger("DoubleJump");
+            Debug.Log("🔁 Double Jump animation triggered.");
+        }
     }
 
     void OnDrawGizmosSelected()
