@@ -87,11 +87,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("🔪 Player attack animation would play here.");
-            animator.SetBool("attack", true); // Trigger the attack animation
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            animator.SetBool("attack", false); // Trigger the shoot animation
+            animator.SetTrigger("attack"); // Trigger the attack animation
         }
 
         // set horizontal and vertical movement animation
@@ -101,19 +97,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
     }
 
-    //void CheckIfGrounded()
-    //{
-    //    bool groundedNow = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-    //    isGrounded = groundedNow;
-
-    //    if (!wasGroundedLastFrame && groundedNow)
-    //    {
-    //        Debug.Log("✅ Player landed (would play 'Land' animation).");
-    //        jumpCount = 0;
-    //    }
-
-    //    wasGroundedLastFrame = groundedNow;
-    //}
     void CheckIfGrounded()
     {
         bool groundedNow = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
@@ -129,15 +112,6 @@ public class PlayerController : MonoBehaviour
 
         wasGroundedLastFrame = groundedNow;
     }
-
-
-    //void Jump()
-    //{
-    //    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-    //    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-    //    jumpCount++;
-    //    Debug.Log("🦘 Player jumped! Jump count: " + jumpCount + " (would play 'Jump' animation).");
-    //}
 
     void Jump()
     {
@@ -198,16 +172,22 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
 
+        animator.SetTrigger("struggleInWater");
+
         Debug.Log("🎥 Animation Trigger: Struggle in water");
 
         yield return new WaitForSeconds(waterDeathDelay);
+
+        // Trigger drowning animation
+        rb.bodyType = RigidbodyType2D.Kinematic; // Ensure player can't move during drowning
+        //animator.SetTrigger("drowning");
 
         Debug.Log("🎥 Animation Trigger: Drowning");
 
         sr.enabled = false;
 
-        yield return new WaitForSeconds(respawnDelay);
 
+        //yield return new WaitForSeconds(respawnDelay);
         transform.position = respawnPoint.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
         sr.enabled = true;
