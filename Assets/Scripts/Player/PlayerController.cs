@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Require basic player components so Unity auto-adds them if missing
@@ -61,7 +60,6 @@ public class PlayerController : MonoBehaviour
         CheckIfGrounded();
 
         float hValue = Input.GetAxisRaw("Horizontal");
-        float vValue = Input.GetAxisRaw("Vertical");
 
         rb.linearVelocity = new Vector2(hValue * currentSpeed, rb.linearVelocity.y);
 
@@ -86,14 +84,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("🔪 Player attack animation would play here.");
-            animator.SetTrigger("attack"); // Trigger the attack animation
+            animator.SetTrigger("attack");
         }
 
-        // set horizontal and vertical movement animation
+        // update movement and grounded states
         animator.SetFloat("hValue", Mathf.Abs(hValue));
         animator.SetFloat("vValue", rb.linearVelocity.y);
-        // set grounded animation state
         animator.SetBool("isGrounded", isGrounded);
     }
 
@@ -106,7 +102,6 @@ public class PlayerController : MonoBehaviour
 
         if (!wasGroundedLastFrame && groundedNow)
         {
-            Debug.Log("✅ Player landed (would play 'Land' animation if added).");
             jumpCount = 0;
         }
 
@@ -124,12 +119,10 @@ public class PlayerController : MonoBehaviour
         if (jumpCount == 1)
         {
             animator.SetTrigger("Jump");
-            Debug.Log("🦘 Normal Jump animation triggered.");
         }
         else if (jumpCount == 2)
         {
             animator.SetTrigger("DoubleJump");
-            Debug.Log("🔁 Double Jump animation triggered.");
         }
     }
 
@@ -156,12 +149,10 @@ public class PlayerController : MonoBehaviour
     {
         if (obj.CompareTag("Death"))
         {
-            Debug.Log("💀 Player hit a death collider! (would play 'Die' animation).");
             StartCoroutine(RespawnAfterDelay(respawnDelay, "Player died!"));
         }
         else if (obj.CompareTag("Water"))
         {
-            Debug.Log("🌊 Player touched water! (would play 'Struggle' animation).");
             StartCoroutine(WaterDeathSequence());
         }
     }
@@ -174,26 +165,15 @@ public class PlayerController : MonoBehaviour
 
         animator.SetTrigger("struggleInWater");
 
-        Debug.Log("🎥 Animation Trigger: Struggle in water");
-
         yield return new WaitForSeconds(waterDeathDelay);
-
-        // Trigger drowning animation
-        rb.bodyType = RigidbodyType2D.Kinematic; // Ensure player can't move during drowning
-        //animator.SetTrigger("drowning");
-
-        Debug.Log("🎥 Animation Trigger: Drowning");
 
         sr.enabled = false;
 
-
-        //yield return new WaitForSeconds(respawnDelay);
         transform.position = respawnPoint.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
         sr.enabled = true;
 
         isDead = false;
-        Debug.Log("🔄 Player respawned!");
     }
 
     private IEnumerator RespawnAfterDelay(float delay, string deathMessage)
@@ -201,10 +181,6 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
-
-        Debug.Log("🎥 Animation Trigger: Die");
-
-        Debug.Log(deathMessage);
 
         sr.enabled = false;
 
@@ -215,6 +191,5 @@ public class PlayerController : MonoBehaviour
         sr.enabled = true;
 
         isDead = false;
-        Debug.Log("🔄 Player respawned!");
     }
 }
