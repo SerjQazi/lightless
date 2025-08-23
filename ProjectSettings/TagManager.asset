@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Water
   - Death
+  - Pickups
   layers:
   - Default
   - TransparentFX
@@ -13,11 +14,11 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Player Effects
+  - Enemy Effects
+  - Pickups
   - 
   - 
   - 
