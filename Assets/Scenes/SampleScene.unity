@@ -1307,7 +1307,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.54, y: 1.2, z: -10}
+  m_LocalPosition: {x: -7.8, y: 2.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1325,10 +1325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6347e4cf200eb6e44b2d5bc1c9399037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minXPos: -10.63
-  maxXPos: 190.7
-  minYPos: -4.5
-  maxYPos: 10.21
+  minXPos: -8.57
+  maxXPos: 188.6
+  minYPos: -4.44
+  maxYPos: 10.28
   target: {fileID: 1409637416}
 --- !u!1 &520756773
 GameObject:
@@ -3370,6 +3370,7 @@ MonoBehaviour:
   leftSpawn: {fileID: 1887967137}
   rightSpawn: {fileID: 255195300}
   projectilePrefab: {fileID: 2669821425768613200, guid: f429cfe280e4712478ee904807aaf555, type: 3}
+  hasSlingshot: 0
 --- !u!1 &1415111116
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,6 +3740,7 @@ GameObject:
   - component: {fileID: 1578271226}
   - component: {fileID: 1578271225}
   - component: {fileID: 1578271227}
+  - component: {fileID: 1578271228}
   m_Layer: 0
   m_Name: slingshot_0
   m_TagString: Untagged
@@ -3828,7 +3830,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facb796c0bfcf664eb25b91ee961a35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueAuraPrefab: {fileID: 0}
+--- !u!58 &1578271228
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578271224}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.34666666
 --- !u!1 &1589177690
 GameObject:
   m_ObjectHideFlags: 0
