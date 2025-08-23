@@ -75,8 +75,7 @@ public class Projectile : MonoBehaviour
     {
         // Assuming the impact animation is 0.5 seconds long, adjust as necessary
         yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
-        // Optionally, you can add more logic here if needed after the animation
+        DestroyAfterImpact();
     }
 
     //// This MUST be called from an Animation Event at the end of the Impact animation
