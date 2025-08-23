@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
@@ -66,6 +66,8 @@ public class Projectile : MonoBehaviour
 
         animator.SetTrigger("Impact");
         Debug.Log("Projectile triggered impact animation.");
+        StartCoroutine(WaitForImpactAnimation());
+        
     }
 
 
@@ -73,6 +75,7 @@ public class Projectile : MonoBehaviour
     {
         // Assuming the impact animation is 0.5 seconds long, adjust as necessary
         yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
         // Optionally, you can add more logic here if needed after the animation
     }
 
