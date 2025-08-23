@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-// Require basic player components so Unity auto-adds them if missing
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -11,26 +10,80 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float respawnDelay = 3f;
     [SerializeField] private float waterDeathDelay = 5f;
 
+    private Shoot shoot; // Reference to Shoot component
+
     [Header("Movement Settings")]
     public float walkSpeed = 4f;
     public float runSpeed = 6f;
     private float currentSpeed;
 
     [Header("Jump Settings")]
-    public float jumpForce = 8f;
+    public int jumpForce = 8; // can be modified by powerup
     public int jumpLimit = 2;
     private int jumpCount = 0;
 
-    [Header("Ground Check Settings")]
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
-    public bool isGrounded;
+    // Stats
+    private int _score = 0;
+    private int _lives = 3;
+    public int maxLives = 9;
 
-    // Private references
+    public int Score
+    {
+        get => _score;
+        set => _score = Mathf.Max(0, value);
+    }
+
+    public int Lives
+    {
+        get => _lives;
+        set
+        {
+            if (value < 0)
+            {
+                Debug.Log("Game Over! No lives left.");
+                _lives = 0;
+                // TODO: hook in GameOver screen here
+            }
+            else if (value > maxLives)
+            {
+                _lives = maxLives;
+            }
+            else
+            {
+                _lives = value;
+            }
+        }
+    }
+
+    // Powerups
+    private Coroutine jumpForceChange = null;
+
+    public void ActivateJumpForceChange()
+    {
+        if (jumpForceChange != null)
+        {
+            StopCoroutine(jumpForceChange);
+            jumpForceChange = null;
+            jumpForce = 8; // reset to default
+        }
+        jumpForceChange = StartCoroutine(ChangeJumpForce());
+    }
+
+    private IEnumerator ChangeJumpForce()
+    {
+        jumpForce = 14; // boosted jump
+        Debug.Log("💥 Jump force increased!");
+        yield return new WaitForSeconds(5f);
+        jumpForce = 8; // reset
+        Debug.Log("⏳ Jump force reset.");
+        jumpForceChange = null;
+    }
+
+    // References
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator animator;
+    private GroundCheck groundCheck;
 
     private bool wasGroundedLastFrame = false;
     private bool isDead = false;
@@ -40,27 +93,29 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        groundCheck = GetComponentInChildren<GroundCheck>();
+        shoot = GetComponent<Shoot>();
 
         if (groundCheck == null)
         {
-            Debug.LogWarning("GroundCheck not assigned! Creating one automatically.");
-            GameObject gc = new GameObject("GroundCheck");
-            gc.transform.parent = transform;
-            gc.transform.localPosition = new Vector3(0f, -0.5f, 0f);
-            groundCheck = gc.transform;
+            Debug.LogError("GroundCheck component missing! Add it as a child object.");
         }
 
         currentSpeed = walkSpeed;
+
+        if (shoot == null)
+        {
+            Debug.LogWarning("No Shoot component found on Player. Shooting will not work.");
+        }
     }
 
     void Update()
     {
         if (isDead) return;
 
-        CheckIfGrounded();
+        bool isGrounded = groundCheck != null && groundCheck.IsGrounded;
 
         float hValue = Input.GetAxisRaw("Horizontal");
-
         rb.linearVelocity = new Vector2(hValue * currentSpeed, rb.linearVelocity.y);
 
         if (hValue < 0) sr.flipX = true;
@@ -87,30 +142,28 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("attack");
         }
 
-        // update movement and grounded states
+        // only allow shooting if slingshot collected
+        if (Input.GetMouseButtonDown(1) && animator.GetBool("hasSlingShot"))
+        {
+            animator.SetTrigger("shoot");
+            shoot?.Fire();
+        }
+
+        // update animator parameters
         animator.SetFloat("hValue", Mathf.Abs(hValue));
         animator.SetFloat("vValue", rb.linearVelocity.y);
         animator.SetBool("isGrounded", isGrounded);
-    }
 
-    void CheckIfGrounded()
-    {
-        bool groundedNow = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        isGrounded = groundedNow;
-
-        animator.SetBool("isGrounded", groundedNow);
-
-        if (!wasGroundedLastFrame && groundedNow)
+        if (!wasGroundedLastFrame && isGrounded)
         {
             jumpCount = 0;
         }
 
-        wasGroundedLastFrame = groundedNow;
+        wasGroundedLastFrame = isGrounded;
     }
 
     void Jump()
     {
-        // Reset vertical velocity before applying jump force
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
@@ -126,24 +179,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        HandleDeathCollision(collision.gameObject);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        HandleDeathCollision(collision.gameObject);
-    }
+    private void OnTriggerEnter2D(Collider2D collision) => HandleDeathCollision(collision.gameObject);
+    private void OnCollisionEnter2D(Collision2D collision) => HandleDeathCollision(collision.gameObject);
 
     private void HandleDeathCollision(GameObject obj)
     {
