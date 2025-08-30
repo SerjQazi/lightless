@@ -8,7 +8,7 @@ public class WalkerEnemy : Enemy
 
     [Header("Movement Settings")]
     [SerializeField, Range(0.5f, 5f)] private float xVelocity = 1.1f;
-    [SerializeField] private float turnPauseTime = 0.8f;
+    [SerializeField] private float turnPauseTime = 0.8f; // optional pause after turn
     [SerializeField] private float idleTime = 3.0f;
     [SerializeField] private float idleChance = 0.2f;
     [SerializeField] private bool spriteFacesRight = true;
@@ -21,6 +21,7 @@ public class WalkerEnemy : Enemy
     private bool isTurning = false;
     private bool isAttacking = false;
     private bool isIdling = false;
+    private bool isDead = false;
 
     private int moveDirection = 1;
 
@@ -35,8 +36,10 @@ public class WalkerEnemy : Enemy
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
-    void Update()
+    private void Update()
     {
+        if (isDead) { rb.linearVelocity = Vector2.zero; return; }
+
         if (player == null)
         {
             Patrol();
@@ -45,6 +48,7 @@ public class WalkerEnemy : Enemy
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        // Stop movement if mid-action
         if (isAttacking || isTurning || isIdling)
         {
             rb.linearVelocity = Vector2.zero;
@@ -78,11 +82,13 @@ public class WalkerEnemy : Enemy
         rb.linearVelocity = new Vector2(moveDirection * xVelocity, rb.linearVelocity.y);
         anim.SetBool("isWalking", true);
 
+        // Random idle behavior
         if (Random.value < idleChance * Time.deltaTime)
         {
             StartCoroutine(IdleRoutine());
         }
 
+        // Flip sprite depending on direction
         sr.flipX = spriteFacesRight ? moveDirection > 0 : moveDirection < 0;
     }
 
@@ -134,41 +140,51 @@ public class WalkerEnemy : Enemy
         }
     }
 
-    // ------------------ DAMAGE ------------------
+    // ------------------ DAMAGE & DEATH ------------------
     public override void TakeDamage(int damageValue, DamageType damageType = DamageType.Default)
     {
-        Debug.Log($"WalkerEnemy took {damageValue} damage, type: {damageType}");
+        if (isDead) return;
 
-        if (damageType == DamageType.Default)
-        {
-            anim.SetTrigger("Hit");
-            base.TakeDamage(damageValue, damageType);
-            return;
-        }
+        // Play hit animation locally
+        anim.SetTrigger("Hit");
 
-        if (damageType == DamageType.JumpedOn)
+        // Apply HP change + death decision (handled in Enemy)
+        base.TakeDamage(damageValue, damageType);
+
+        // If base reduced HP to 0, freeze this enemy while death anim plays
+        if (CurrentHealth <= 0)
         {
-            anim.SetTrigger("Death");
-            rb.linearVelocity = Vector2.zero;
+            isDead = true;
             isWalking = false;
-            Destroy(transform.parent != null ? transform.parent.gameObject : gameObject, 0.5f);
+            isAttacking = false;
+            isTurning = false;
+            isIdling = false;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
     // ------------------ TURN ------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Barrier"))
+        if (collision.CompareTag("Barrier") && !isDead)
         {
-            anim.SetTrigger("Turn");
-            moveDirection *= -1;
-            rb.linearVelocity = new Vector2(moveDirection * xVelocity, rb.linearVelocity.y);
-
-            if (isWalking)
-            {
-                anim.SetBool("isWalking", true);
-            }
+            StartCoroutine(TurnRoutine());
         }
+    }
+
+    private System.Collections.IEnumerator TurnRoutine()
+    {
+        isTurning = true;
+        anim.SetTrigger("Turn");
+
+        moveDirection *= -1;
+        rb.linearVelocity = new Vector2(moveDirection * xVelocity, rb.linearVelocity.y);
+
+        // brief pause after turning (uses turnPauseTime so the warning goes away)
+        yield return new WaitForSeconds(turnPauseTime);
+
+        isTurning = false;
+        if (isWalking) anim.SetBool("isWalking", true);
     }
 
     // ------------------ GIZMOS ------------------

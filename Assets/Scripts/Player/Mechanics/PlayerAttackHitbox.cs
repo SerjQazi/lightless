@@ -17,4 +17,10 @@ public class PlayerAttackHitbox : MonoBehaviour
             Debug.Log($"⚠️ Triggered object is not a WalkerEnemy: {other.name}");
         }
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, GetComponent<Collider2D>().bounds.size);
+    }
+
 }

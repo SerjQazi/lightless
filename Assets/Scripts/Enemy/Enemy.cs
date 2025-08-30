@@ -5,12 +5,14 @@ public abstract class Enemy : MonoBehaviour
 {
     protected SpriteRenderer sr;
     protected Animator anim;
-    protected int health;
 
-    [SerializeField] private int maxHealth = 5;
+    public int CurrentHealth => health;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // Virtual - a method that can be overridden in child classes - if you want to allow child classes to change the behavior of a method, this is the way to go.
+
+    [SerializeField] protected int maxHealth = 5; // Now protected so child classes can see it
+    protected int health; // Also protected for child class access
+
+    // Virtual - child classes can override this if needed
     protected virtual void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -19,7 +21,7 @@ public abstract class Enemy : MonoBehaviour
         if (maxHealth <= 0)
         {
             Debug.LogError("Max health must be greater than 0. Setting to default value of 5.");
-            maxHealth = 6;
+            maxHealth = 5; // Fixed typo (was 6)
         }
 
         health = maxHealth;
@@ -45,7 +47,6 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-
 }
 
 public enum DamageType

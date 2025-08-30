@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Combat Settings")]
     [SerializeField] private GameObject clawHitbox;
+    [SerializeField] private float clawCooldown = 0.5f;
 
     [Header("Movement Settings")]
     public float walkSpeed = 4f;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
     private bool wasGroundedLastFrame = false;
     private bool isDead = false;
+    private bool canClaw = true;
 
     void Start()
     {
@@ -118,7 +120,6 @@ public class PlayerController : MonoBehaviour
         float hValue = Input.GetAxisRaw("Horizontal");
 
         rb.linearVelocity = new Vector2(hValue * currentSpeed, rb.linearVelocity.y);
-
         sr.flipX = hValue < 0;
 
         currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
@@ -127,8 +128,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < jumpLimit)
             Jump();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canClaw)
+        {
             animator.SetTrigger("attack");
+            StartCoroutine(ClawCooldownRoutine());
+        }
 
         if (Input.GetMouseButtonDown(1) && animator.GetBool("hasSlingShot"))
         {
@@ -161,6 +165,10 @@ public class PlayerController : MonoBehaviour
         if (clawHitbox != null)
         {
             clawHitbox.SetActive(true);
+
+            SpriteRenderer sr = clawHitbox.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.enabled = true;
+
             Debug.Log("🟢 Claw hitbox enabled");
         }
     }
@@ -169,9 +177,23 @@ public class PlayerController : MonoBehaviour
     {
         if (clawHitbox != null)
         {
+            SpriteRenderer sr = clawHitbox.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.enabled = false;
+
             clawHitbox.SetActive(false);
             Debug.Log("🔴 Claw hitbox disabled");
         }
+    }
+
+
+    private IEnumerator ClawCooldownRoutine()
+    {
+        canClaw = false;
+        yield return new WaitForSeconds(clawCooldown);
+        canClaw = true;
+
+        // Safety: ensure hitbox is disabled after cooldown
+        DisableClawHitbox();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) => HandleDeathCollision(collision.gameObject);
