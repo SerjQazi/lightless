@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float respawnDelay = 3f;
     [SerializeField] private float waterDeathDelay = 5f;
 
-    private Shoot shoot; // Reference to Shoot component
+    [Header("Combat Settings")]
+    [SerializeField] private GameObject clawHitbox;
 
     [Header("Movement Settings")]
     public float walkSpeed = 4f;
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed;
 
     [Header("Jump Settings")]
-    public int jumpForce = 8; // can be modified by powerup
+    public int jumpForce = 8;
     public int jumpLimit = 2;
     private int jumpCount = 0;
 
@@ -64,17 +65,17 @@ public class PlayerController : MonoBehaviour
         {
             StopCoroutine(jumpForceChange);
             jumpForceChange = null;
-            jumpForce = 8; // reset to default
+            jumpForce = 8;
         }
         jumpForceChange = StartCoroutine(ChangeJumpForce());
     }
 
     private IEnumerator ChangeJumpForce()
     {
-        jumpForce = 14; // boosted jump
+        jumpForce = 14;
         Debug.Log("💥 Jump force increased!");
         yield return new WaitForSeconds(5f);
-        jumpForce = 8; // reset
+        jumpForce = 8;
         Debug.Log("⏳ Jump force reset.");
         jumpForceChange = null;
     }
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sr;
     private Animator animator;
     private GroundCheck groundCheck;
+    private Shoot shoot;
 
     private bool wasGroundedLastFrame = false;
     private bool isDead = false;
@@ -96,17 +98,16 @@ public class PlayerController : MonoBehaviour
         groundCheck = GetComponentInChildren<GroundCheck>();
         shoot = GetComponent<Shoot>();
 
-        if (groundCheck == null)
-        {
-            Debug.LogError("GroundCheck component missing! Add it as a child object.");
-        }
-
         currentSpeed = walkSpeed;
 
+        if (groundCheck == null)
+            Debug.LogError("GroundCheck component missing! Add it as a child object.");
+
         if (shoot == null)
-        {
             Debug.LogWarning("No Shoot component found on Player. Shooting will not work.");
-        }
+
+        if (clawHitbox != null)
+            clawHitbox.SetActive(false);
     }
 
     void Update()
@@ -114,50 +115,33 @@ public class PlayerController : MonoBehaviour
         if (isDead) return;
 
         bool isGrounded = groundCheck != null && groundCheck.IsGrounded;
-
         float hValue = Input.GetAxisRaw("Horizontal");
+
         rb.linearVelocity = new Vector2(hValue * currentSpeed, rb.linearVelocity.y);
 
-        if (hValue < 0) sr.flipX = true;
-        else if (hValue > 0) sr.flipX = false;
+        sr.flipX = hValue < 0;
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            currentSpeed = runSpeed;
-            animator.SetBool("isRolling", true);
-        }
-        else
-        {
-            currentSpeed = walkSpeed;
-            animator.SetBool("isRolling", false);
-        }
+        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        animator.SetBool("isRolling", Input.GetKey(KeyCode.LeftShift));
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < jumpLimit)
-        {
             Jump();
-        }
 
         if (Input.GetMouseButtonDown(0))
-        {
             animator.SetTrigger("attack");
-        }
 
-        // only allow shooting if slingshot collected
         if (Input.GetMouseButtonDown(1) && animator.GetBool("hasSlingShot"))
         {
             animator.SetTrigger("shoot");
             shoot?.Fire();
         }
 
-        // update animator parameters
         animator.SetFloat("hValue", Mathf.Abs(hValue));
         animator.SetFloat("vValue", rb.linearVelocity.y);
         animator.SetBool("isGrounded", isGrounded);
 
         if (!wasGroundedLastFrame && isGrounded)
-        {
             jumpCount = 0;
-        }
 
         wasGroundedLastFrame = isGrounded;
     }
@@ -166,16 +150,27 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
         jumpCount++;
 
-        if (jumpCount == 1)
+        animator.SetTrigger(jumpCount == 1 ? "Jump" : "DoubleJump");
+    }
+
+    // Claw hitbox control via animation events
+    public void EnableClawHitbox()
+    {
+        if (clawHitbox != null)
         {
-            animator.SetTrigger("Jump");
+            clawHitbox.SetActive(true);
+            Debug.Log("🟢 Claw hitbox enabled");
         }
-        else if (jumpCount == 2)
+    }
+
+    public void DisableClawHitbox()
+    {
+        if (clawHitbox != null)
         {
-            animator.SetTrigger("DoubleJump");
+            clawHitbox.SetActive(false);
+            Debug.Log("🔴 Claw hitbox disabled");
         }
     }
 
@@ -185,13 +180,9 @@ public class PlayerController : MonoBehaviour
     private void HandleDeathCollision(GameObject obj)
     {
         if (obj.CompareTag("Death"))
-        {
             StartCoroutine(RespawnAfterDelay(respawnDelay, "Player died!"));
-        }
         else if (obj.CompareTag("Water"))
-        {
             StartCoroutine(WaterDeathSequence());
-        }
     }
 
     private IEnumerator WaterDeathSequence()
@@ -201,15 +192,12 @@ public class PlayerController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         animator.SetTrigger("struggleInWater");
-
         yield return new WaitForSeconds(waterDeathDelay);
 
         sr.enabled = false;
-
         transform.position = respawnPoint.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
         sr.enabled = true;
-
         isDead = false;
     }
 
@@ -220,13 +208,11 @@ public class PlayerController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         sr.enabled = false;
-
         yield return new WaitForSeconds(delay);
 
         transform.position = respawnPoint.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
         sr.enabled = true;
-
         isDead = false;
     }
 }
