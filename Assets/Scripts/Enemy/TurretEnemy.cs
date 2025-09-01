@@ -54,7 +54,7 @@ public class TurretGhost : Enemy
                 // float toward player
                 float dir = Mathf.Sign(player.position.x - transform.position.x);
                 rb.linearVelocity = new Vector2(dir * xVelocity, rb.linearVelocity.y);
-                sr.flipX = spriteFacesRight ? dir > 0 : dir < 0;
+                sr.flipX = spriteFacesRight ? dir < 0 : dir > 0;
             }
             else
             {
@@ -67,7 +67,7 @@ public class TurretGhost : Enemy
     private void Patrol()
     {
         rb.linearVelocity = new Vector2(moveDirection * xVelocity, rb.linearVelocity.y);
-        sr.flipX = spriteFacesRight ? moveDirection > 0 : moveDirection < 0;
+        sr.flipX = spriteFacesRight ? moveDirection < 0 : moveDirection > 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -83,12 +83,18 @@ public class TurretGhost : Enemy
     {
         if (Time.time < timeSinceLastShot + fireRate) return;
 
+        if (firePoint == null)
+        {
+            firePoint = transform.Find("orb_point"); // looks for a child named orb_point
+        }
+
+
         if (projectilePrefab != null && firePoint != null && player != null)
         {
             GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
             // Always shoot directly at player, regardless of facing
-            Vector2 dir = (player.position - firePoint.position).normalized;
+            Vector2 dir = (player.position + firePoint.position).normalized;
 
             proj.GetComponent<Projectile>().SetVelocity(dir * projectileSpeed);
         }

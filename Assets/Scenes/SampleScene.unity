@@ -3728,7 +3728,7 @@ Transform:
   m_GameObject: {fileID: 1409637411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.53, y: 0.07, z: 0}
+  m_LocalPosition: {x: -0.41, y: -2.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4992,6 +4992,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.1093063, y: 5.290577}
   m_EdgeRadius: 0
+--- !u!4 &1926465931 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 68625285908218005, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+  m_PrefabInstance: {fileID: 2716300240171350327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1988944237
 GameObject:
   m_ObjectHideFlags: 0
@@ -9469,6 +9474,11 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!4 &2082913915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1691485476347811974, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+  m_PrefabInstance: {fileID: 2716300240171350327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2104687765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9665,6 +9675,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 68625285908218005, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691485476347811974, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.58
+      objectReference: {fileID: 0}
     - target: {fileID: 1763984225453251959, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.473107
@@ -9705,9 +9723,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3502372451248011567, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3502372451248011567, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995691676237461148, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995691676237461148, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5010284444208154753, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: leftSpawn
+      value: 
+      objectReference: {fileID: 2082913915}
+    - target: {fileID: 5010284444208154753, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: rightSpawn
+      value: 
+      objectReference: {fileID: 1926465931}
+    - target: {fileID: 5157998836612381245, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6851629386653362228, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
       propertyPath: m_Name
       value: TurretEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875227178719829694, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: attackRadius
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875227178719829694, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: detectionRadius
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

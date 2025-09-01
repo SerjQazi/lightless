@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]  
+[RequireComponent(typeof(SpriteRenderer))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private ProjectileType projectileType = ProjectileType.Player;
@@ -10,6 +11,7 @@ public class Projectile : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private Collider2D col;
+    private SpriteRenderer sr;
     private bool hasImpacted = false;
 
     private void Awake()
@@ -17,6 +19,7 @@ public class Projectile : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -28,6 +31,12 @@ public class Projectile : MonoBehaviour
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>(); // safety check
         rb.linearVelocity = velocity;
+
+        // Defensive orientation: flip based on horizontal velocity
+        if (sr != null && Mathf.Abs(velocity.x) > 0.01f) // ignore tiny values
+        {
+            sr.flipX = velocity.x < 0f; // face left if moving left
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -67,9 +76,7 @@ public class Projectile : MonoBehaviour
         animator.SetTrigger("Impact");
         Debug.Log("Projectile triggered impact animation.");
         StartCoroutine(WaitForImpactAnimation());
-        
     }
-
 
     private IEnumerator WaitForImpactAnimation()
     {
