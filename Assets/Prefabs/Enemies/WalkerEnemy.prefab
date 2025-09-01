@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6740287548908181609}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.997572, y: 1.4647295, z: 0.3526805}
+  m_LocalPosition: {x: -9.96, y: 0.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5538310398231285584}
   m_Layer: 0
   m_Name: Barrier1
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 8243177634254262807}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.836, y: 1.488, z: 0}
+  m_LocalPosition: {x: 7.75, y: 1.488, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -96,11 +96,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.36029667, y: 0.056150198}
+  m_Offset: {x: 0.46947044, y: 0.62385404}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -110,7 +110,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.27940667, y: 1.1123004}
+  m_Size: {x: 0.49775422, y: 3.6626008}
   m_EdgeRadius: 0
 --- !u!1 &8674578157197664190
 GameObject:
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 2922229358282014302}
   m_Layer: 0
   m_Name: Barrier2
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 8674578157197664190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.535, y: 1.49, z: 0}
+  m_LocalPosition: {x: 15.191, y: 0.765, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -174,11 +174,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.33664465, y: 0}
+  m_Offset: {x: -1.1794665, y: 1.2314806}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -188,7 +188,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3267107, y: 1}
+  m_Size: {x: 0.5625262, y: 3.4629612}
   m_EdgeRadius: 0
 --- !u!1 &9111358452898754388
 GameObject:
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 1642701862668189095}
   - component: {fileID: 5500793078769568381}
   m_Layer: 0
-  m_Name: Mushroom-Run
+  m_Name: Mushroom-Idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ Transform:
   m_GameObject: {fileID: 9111358452898754388}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.49, y: 1.53, z: -0.3526805}
+  m_LocalPosition: {x: 11.49, y: 1.65, z: -0.3526805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272,10 +272,10 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -654737500350741434, guid: 92818fbe8ad84ee4b9b7e43eb817e2bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.34}
+  m_Size: {x: 1, y: 1.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -337,8 +337,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1.0625}
+  m_Offset: {x: 0, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_Direction: 0
 --- !u!50 &1642701862668189095
 Rigidbody2D:
@@ -379,5 +379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791a6119c5b05eb4ab91c36ce18fe174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  xVelocity: 2
+  maxHealth: 9
+  xVelocity: 1.1
+  turnPauseTime: 0.8
+  idleTime: 3
+  idleChance: 0.2
+  spriteFacesRight: 1
+  detectionRadius: 5
+  attackRadius: 1.2
