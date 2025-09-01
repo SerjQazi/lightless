@@ -10,15 +10,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float respawnDelay = 3f;
     [SerializeField] private float waterDeathDelay = 5f;
 
-    private Shoot shoot; // Reference to Shoot component
+    [Header("Combat Settings")]
+    [SerializeField] private GameObject clawHitbox;
+    [SerializeField] private float clawCooldown = 0.5f;
+    public bool IsAttacking { get; private set; } = false;
+    private bool canClaw = true;
+    private Vector3 clawHitboxDefaultLocalPos;
 
     [Header("Movement Settings")]
     public float walkSpeed = 4f;
     public float runSpeed = 6f;
     private float currentSpeed;
+    private int facingSign = 1; // 1 = right, -1 = left
 
     [Header("Jump Settings")]
-    public int jumpForce = 8; // can be modified by powerup
+    public int jumpForce = 8;
     public int jumpLimit = 2;
     private int jumpCount = 0;
 
@@ -42,16 +48,9 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Game Over! No lives left.");
                 _lives = 0;
-                // TODO: hook in GameOver screen here
             }
-            else if (value > maxLives)
-            {
-                _lives = maxLives;
-            }
-            else
-            {
-                _lives = value;
-            }
+            else if (value > maxLives) _lives = maxLives;
+            else _lives = value;
         }
     }
 
@@ -64,17 +63,17 @@ public class PlayerController : MonoBehaviour
         {
             StopCoroutine(jumpForceChange);
             jumpForceChange = null;
-            jumpForce = 8; // reset to default
+            jumpForce = 8;
         }
         jumpForceChange = StartCoroutine(ChangeJumpForce());
     }
 
     private IEnumerator ChangeJumpForce()
     {
-        jumpForce = 14; // boosted jump
+        jumpForce = 14;
         Debug.Log("💥 Jump force increased!");
         yield return new WaitForSeconds(5f);
-        jumpForce = 8; // reset
+        jumpForce = 8;
         Debug.Log("⏳ Jump force reset.");
         jumpForceChange = null;
     }
@@ -84,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sr;
     private Animator animator;
     private GroundCheck groundCheck;
+    private Shoot shoot;
 
     private bool wasGroundedLastFrame = false;
     private bool isDead = false;
@@ -95,18 +95,13 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         groundCheck = GetComponentInChildren<GroundCheck>();
         shoot = GetComponent<Shoot>();
-
-        if (groundCheck == null)
-        {
-            Debug.LogError("GroundCheck component missing! Add it as a child object.");
-        }
-
         currentSpeed = walkSpeed;
 
-        if (shoot == null)
-        {
-            Debug.LogWarning("No Shoot component found on Player. Shooting will not work.");
-        }
+        if (groundCheck == null) Debug.LogError("GroundCheck missing!");
+        if (shoot == null) Debug.LogWarning("Shoot component missing!");
+
+        if (clawHitbox != null)
+            clawHitboxDefaultLocalPos = clawHitbox.transform.localPosition;
     }
 
     void Update()
@@ -114,69 +109,89 @@ public class PlayerController : MonoBehaviour
         if (isDead) return;
 
         bool isGrounded = groundCheck != null && groundCheck.IsGrounded;
-
         float hValue = Input.GetAxisRaw("Horizontal");
+
         rb.linearVelocity = new Vector2(hValue * currentSpeed, rb.linearVelocity.y);
 
-        if (hValue < 0) sr.flipX = true;
-        else if (hValue > 0) sr.flipX = false;
+        // Handle facing
+        if (hValue > 0f) { facingSign = 1; sr.flipX = false; }
+        else if (hValue < 0f) { facingSign = -1; sr.flipX = true; }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            currentSpeed = runSpeed;
-            animator.SetBool("isRolling", true);
-        }
-        else
-        {
-            currentSpeed = walkSpeed;
-            animator.SetBool("isRolling", false);
-        }
+        UpdateClawHitboxFacing();
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < jumpLimit)
-        {
-            Jump();
-        }
+        // Run toggle
+        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        animator.SetBool("isRolling", Input.GetKey(KeyCode.LeftShift));
 
-        if (Input.GetMouseButtonDown(0))
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < jumpLimit) Jump();
+
+        // Left-click claw attack
+        if (Input.GetMouseButtonDown(0) && canClaw)
         {
             animator.SetTrigger("attack");
+            StartClawAttack(); // hitbox shows up
+            StartCoroutine(ClawCooldownRoutine());
         }
 
-        // only allow shooting if slingshot collected
+        // Right-click shoot
         if (Input.GetMouseButtonDown(1) && animator.GetBool("hasSlingShot"))
         {
             animator.SetTrigger("shoot");
             shoot?.Fire();
         }
 
-        // update animator parameters
+        // Animator params
         animator.SetFloat("hValue", Mathf.Abs(hValue));
         animator.SetFloat("vValue", rb.linearVelocity.y);
         animator.SetBool("isGrounded", isGrounded);
 
-        if (!wasGroundedLastFrame && isGrounded)
-        {
-            jumpCount = 0;
-        }
-
+        // Reset jump on landing
+        if (!wasGroundedLastFrame && isGrounded) jumpCount = 0;
         wasGroundedLastFrame = isGrounded;
+    }
+
+    private float clawLeftOffset = 0.3f; // tweak in Inspector
+
+    private void UpdateClawHitboxFacing()
+    {
+        if (clawHitbox == null) return;
+
+        Vector3 pos = clawHitboxDefaultLocalPos;
+        pos.x = Mathf.Abs(pos.x) * facingSign;
+        if (facingSign == -1)
+            pos.x += clawLeftOffset; // nudges it closer when facing left
+
+        clawHitbox.transform.localPosition = pos;
     }
 
     void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
         jumpCount++;
+        animator.SetTrigger(jumpCount == 1 ? "Jump" : "DoubleJump");
+    }
 
-        if (jumpCount == 1)
-        {
-            animator.SetTrigger("Jump");
-        }
-        else if (jumpCount == 2)
-        {
-            animator.SetTrigger("DoubleJump");
-        }
+    // Animation events
+    public void StartClawAttack()
+    {
+        IsAttacking = true;
+        if (clawHitbox != null) clawHitbox.SetActive(true);
+    }
+
+    public void EndClawAttack()
+    {
+        IsAttacking = false;
+        if (clawHitbox != null) clawHitbox.SetActive(false);
+    }
+
+    private IEnumerator ClawCooldownRoutine()
+    {
+        canClaw = false;
+        yield return new WaitForSeconds(clawCooldown);
+        canClaw = true;
+        IsAttacking = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) => HandleDeathCollision(collision.gameObject);
@@ -184,14 +199,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDeathCollision(GameObject obj)
     {
-        if (obj.CompareTag("Death"))
-        {
-            StartCoroutine(RespawnAfterDelay(respawnDelay, "Player died!"));
-        }
-        else if (obj.CompareTag("Water"))
-        {
-            StartCoroutine(WaterDeathSequence());
-        }
+        if (obj.CompareTag("Death")) StartCoroutine(RespawnAfterDelay(respawnDelay, "Player died!"));
+        else if (obj.CompareTag("Water")) StartCoroutine(WaterDeathSequence());
     }
 
     private IEnumerator WaterDeathSequence()
@@ -201,15 +210,12 @@ public class PlayerController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         animator.SetTrigger("struggleInWater");
-
         yield return new WaitForSeconds(waterDeathDelay);
 
         sr.enabled = false;
-
         transform.position = respawnPoint.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
         sr.enabled = true;
-
         isDead = false;
     }
 
@@ -220,13 +226,11 @@ public class PlayerController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         sr.enabled = false;
-
         yield return new WaitForSeconds(delay);
 
         transform.position = respawnPoint.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
         sr.enabled = true;
-
         isDead = false;
     }
 }

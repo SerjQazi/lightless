@@ -1,0 +1,1144 @@
+fileFormatVersion: 2
+guid: b2b6419b2f00cf0428d5656923bca635
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6738583313918713953
+    second: ghost_idle_shoot_0
+  - first:
+      213: 1980197972819884912
+    second: ghost_idle_shoot_1
+  - first:
+      213: 8569448366691425028
+    second: ghost_idle_shoot_2
+  - first:
+      213: 5286111595293693150
+    second: ghost_idle_shoot_3
+  - first:
+      213: -2961299953807145515
+    second: ghost_idle_shoot_4
+  - first:
+      213: -8902930638445541258
+    second: ghost_idle_shoot_5
+  - first:
+      213: 2754702427551840149
+    second: ghost_idle_shoot_6
+  - first:
+      213: 3379697320232646482
+    second: ghost_idle_shoot_7
+  - first:
+      213: 2394907927359420694
+    second: ghost_idle_shoot_8
+  - first:
+      213: -1282733449046626739
+    second: ghost_idle_shoot_9
+  - first:
+      213: -2125548504453552820
+    second: ghost_idle_shoot_10
+  - first:
+      213: -2970964983301501023
+    second: ghost_idle_shoot_11
+  - first:
+      213: -8153610011106364832
+    second: ghost_idle_shoot_12
+  - first:
+      213: 3460119770506757440
+    second: ghost_idle_shoot_13
+  - first:
+      213: -6854322511152537147
+    second: ghost_idle_shoot_14
+  - first:
+      213: 7217107433516472283
+    second: ghost_idle_shoot_15
+  - first:
+      213: 2180877075118617546
+    second: ghost_idle_shoot_16
+  - first:
+      213: -460393079960786079
+    second: ghost_idle_shoot_17
+  - first:
+      213: 4215236698252673636
+    second: ghost_idle_shoot_18
+  - first:
+      213: -1349914522079155533
+    second: ghost_idle_shoot_19
+  - first:
+      213: -5023516564045035028
+    second: ghost_idle_shoot_20
+  - first:
+      213: 8379626172308736215
+    second: ghost_idle_shoot_21
+  - first:
+      213: -7933727153475111976
+    second: ghost_idle_shoot_22
+  - first:
+      213: -3269726130570996860
+    second: ghost_idle_shoot_23
+  - first:
+      213: -1397551089393868375
+    second: ghost_idle_shoot_24
+  - first:
+      213: -6204678783548132338
+    second: ghost_idle_shoot_25
+  - first:
+      213: 6168680962354222952
+    second: ghost_idle_shoot_26
+  - first:
+      213: -8423806541867494099
+    second: ghost_idle_shoot_27
+  - first:
+      213: -2242493684224165231
+    second: ghost_idle_shoot_28
+  - first:
+      213: 4839020849891978660
+    second: ghost_idle_shoot_29
+  - first:
+      213: -309078144259668872
+    second: ghost_idle_shoot_30
+  - first:
+      213: -5495178243636827921
+    second: ghost_idle_shoot_31
+  - first:
+      213: 5092997348620448513
+    second: ghost_idle_shoot_32
+  - first:
+      213: -3131692150860501486
+    second: ghost_idle_shoot_33
+  - first:
+      213: 8340713628495371616
+    second: ghost_idle_shoot_34
+  - first:
+      213: 2734644866496585784
+    second: ghost_idle_shoot_35
+  - first:
+      213: 1663139436122857678
+    second: ghost_idle_shoot_36
+  - first:
+      213: -2301527430184508923
+    second: ghost_idle_shoot_37
+  - first:
+      213: -6336346181034956352
+    second: ghost_idle_shoot_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 130
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 002
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 622
+        width: 146
+        height: 327
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9f1084bd2ebb72a0800000000000000
+      internalID: -6738583313918713953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_1
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 785
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07bb0e290931b7b10800000000000000
+      internalID: 1980197972819884912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_2
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 780
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40b91b9f2ebcce670800000000000000
+      internalID: 8569448366691425028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_3
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 630
+        width: 221
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed4dd882d7a0c5940800000000000000
+      internalID: 5286111595293693150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack001
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 626
+        width: 178
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d5c1f3b16957e6d0800000000000000
+      internalID: -2961299953807145515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 003
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 626
+        width: 154
+        height: 324
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 678038b01cf627480800000000000000
+      internalID: -8902930638445541258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 005
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 625
+        width: 157
+        height: 326
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5973228434baa3620800000000000000
+      internalID: 2754702427551840149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_7
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 769
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2577ecc6ec817ee20800000000000000
+      internalID: 3379697320232646482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_8
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 762
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6197608321c6c3120800000000000000
+      internalID: 2394907927359420694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_9
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 774
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4e601c69b0d23ee0800000000000000
+      internalID: -1282733449046626739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_10
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 766
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c45ee2795e88082e0800000000000000
+      internalID: -2125548504453552820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_11
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 773
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1af803aa61305c6d0800000000000000
+      internalID: -2970964983301501023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_12
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 753
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 062bfe205ee88de80800000000000000
+      internalID: -8153610011106364832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_13
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 753
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0458c594990d40030800000000000000
+      internalID: 3460119770506757440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_14
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 624
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c12acaedfd80e0a0800000000000000
+      internalID: -6854322511152537147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_15
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 403
+        width: 28
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd7949019f0582460800000000000000
+      internalID: 7217107433516472283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_16
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 408
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac3fc312528044e10800000000000000
+      internalID: 2180877075118617546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_17
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 384
+        width: 40
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16ba3ebdeea5c99f0800000000000000
+      internalID: -460393079960786079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_18
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 261
+        width: 181
+        height: 305
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4628a8b91778f7a30800000000000000
+      internalID: 4215236698252673636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 001
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 261
+        width: 147
+        height: 315
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3baa452f4e3244de0800000000000000
+      internalID: -1349914522079155533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 004
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 263
+        width: 153
+        height: 305
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce90eccfc42e84ab0800000000000000
+      internalID: -5023516564045035028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_21
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 413
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d847074b996a4470800000000000000
+      internalID: 8379626172308736215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack002
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 186
+        width: 176
+        height: 353
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d3be38403db5e190800000000000000
+      internalID: -7933727153475111976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_23
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 396
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 483d08278699f92d0800000000000000
+      internalID: -3269726130570996860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_24
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 390
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a1e73150b6ea9ce0800000000000000
+      internalID: -1397551089393868375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_25
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 397
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e04f539258d84e9a0800000000000000
+      internalID: -6204678783548132338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_26
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 390
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86796d5f6ae8b9550800000000000000
+      internalID: 6168680962354222952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_27
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 396
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d255067d490a81b80800000000000000
+      internalID: -8423806541867494099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_28
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 384
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19af2cc10ef01e0e0800000000000000
+      internalID: -2242493684224165231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_29
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 397
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ad258223d7a72340800000000000000
+      internalID: 4839020849891978660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orb001
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 341
+        width: 153
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 874c09bb01fe5bbf0800000000000000
+      internalID: -309078144259668872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_31
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 384
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8629a80843db3b0800000000000000
+      internalID: -5495178243636827921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_32
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 384
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 103378eca16fda640800000000000000
+      internalID: 5092997348620448513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_33
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 387
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21ea41ac49ef984d0800000000000000
+      internalID: -3131692150860501486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_34
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 338
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06dd9b7aada20c370800000000000000
+      internalID: 8340713628495371616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_35
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 90
+        width: 403
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830ef5e640963f520800000000000000
+      internalID: 2734644866496585784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_36
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 186
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec0eb066188a41710800000000000000
+      internalID: 1663139436122857678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_37
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 168
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502e80b0ff45f00e0800000000000000
+      internalID: -2301527430184508923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghost_idle_shoot_38
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 133
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9228148b6c018a0800000000000000
+      internalID: -6336346181034956352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7c7d14f9b55be4e43972c951e0c67a4b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      001: -1349914522079155533
+      002: -6738583313918713953
+      003: -8902930638445541258
+      004: -5023516564045035028
+      005: 2754702427551840149
+      attack001: -2961299953807145515
+      attack002: -7933727153475111976
+      ghost_idle_shoot_1: 1980197972819884912
+      ghost_idle_shoot_10: -2125548504453552820
+      ghost_idle_shoot_11: -2970964983301501023
+      ghost_idle_shoot_12: -8153610011106364832
+      ghost_idle_shoot_13: 3460119770506757440
+      ghost_idle_shoot_14: -6854322511152537147
+      ghost_idle_shoot_15: 7217107433516472283
+      ghost_idle_shoot_16: 2180877075118617546
+      ghost_idle_shoot_17: -460393079960786079
+      ghost_idle_shoot_18: 4215236698252673636
+      ghost_idle_shoot_2: 8569448366691425028
+      ghost_idle_shoot_21: 8379626172308736215
+      ghost_idle_shoot_23: -3269726130570996860
+      ghost_idle_shoot_24: -1397551089393868375
+      ghost_idle_shoot_25: -6204678783548132338
+      ghost_idle_shoot_26: 6168680962354222952
+      ghost_idle_shoot_27: -8423806541867494099
+      ghost_idle_shoot_28: -2242493684224165231
+      ghost_idle_shoot_29: 4839020849891978660
+      ghost_idle_shoot_3: 5286111595293693150
+      ghost_idle_shoot_31: -5495178243636827921
+      ghost_idle_shoot_32: 5092997348620448513
+      ghost_idle_shoot_33: -3131692150860501486
+      ghost_idle_shoot_34: 8340713628495371616
+      ghost_idle_shoot_35: 2734644866496585784
+      ghost_idle_shoot_36: 1663139436122857678
+      ghost_idle_shoot_37: -2301527430184508923
+      ghost_idle_shoot_38: -6336346181034956352
+      ghost_idle_shoot_7: 3379697320232646482
+      ghost_idle_shoot_8: 2394907927359420694
+      ghost_idle_shoot_9: -1282733449046626739
+      orb001: -309078144259668872
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
