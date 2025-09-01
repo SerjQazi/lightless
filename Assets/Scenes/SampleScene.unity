@@ -9739,6 +9739,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.07
       objectReference: {fileID: 0}
+    - target: {fileID: 4832575456831365835, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5010284444208154753, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
       propertyPath: leftSpawn
       value: 
@@ -9747,6 +9751,10 @@ PrefabInstance:
       propertyPath: rightSpawn
       value: 
       objectReference: {fileID: 1926465931}
+    - target: {fileID: 5010284444208154753, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: initShotVelocity.x
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5157998836612381245, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
       propertyPath: m_LocalScale.x
       value: -1

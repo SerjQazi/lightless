@@ -6,6 +6,9 @@ public class TurretGhost : Enemy
     private Rigidbody2D rb;
     private Transform player;
 
+    private enum GhostState { Patrolling, Chasing, Attacking }
+    private GhostState currentState = GhostState.Patrolling;
+
     [Header("Movement Settings")]
     [SerializeField, Range(0.5f, 5f)] private float xVelocity = 1.0f;
     [SerializeField] private bool spriteFacesRight = true;
@@ -18,9 +21,9 @@ public class TurretGhost : Enemy
     [SerializeField] private float fireRate = 2.0f;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 5f; // easy tuning in Inspector
+    [SerializeField] private float projectileSpeed = 5f;
 
-    private float timeSinceLastShot = 0f;
+    private float timeSinceLastShot = 0.3f;
     private int moveDirection = 1;
     private bool isDead = false;
 
@@ -40,26 +43,42 @@ public class TurretGhost : Enemy
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        // ---------------- STATE SWITCHING ----------------
         if (distanceToPlayer <= attackRadius)
         {
-            rb.linearVelocity = Vector2.zero;
-            anim.SetBool("Attack", true); // play attack animation
+            currentState = GhostState.Attacking;
+        }
+        else if (distanceToPlayer <= detectionRadius)
+        {
+            currentState = GhostState.Chasing;
         }
         else
         {
-            anim.SetBool("Attack", false);
+            currentState = GhostState.Patrolling;
+        }
 
-            if (distanceToPlayer <= detectionRadius)
-            {
-                // float toward player
+        // ---------------- STATE HANDLING ----------------
+        switch (currentState)
+        {
+            case GhostState.Attacking:
+                rb.linearVelocity = Vector2.zero;
+                anim.SetBool("Attack", true);
+                break;
+
+            case GhostState.Chasing:
+                anim.SetBool("Attack", false);
+
+                // Chase but still respect patrol barriers
                 float dir = Mathf.Sign(player.position.x - transform.position.x);
                 rb.linearVelocity = new Vector2(dir * xVelocity, rb.linearVelocity.y);
                 sr.flipX = spriteFacesRight ? dir < 0 : dir > 0;
-            }
-            else
-            {
+                break;
+
+            case GhostState.Patrolling:
+            default:
+                anim.SetBool("Attack", false);
                 Patrol();
-            }
+                break;
         }
     }
 
@@ -74,7 +93,14 @@ public class TurretGhost : Enemy
     {
         if (collision.CompareTag("Barrier") && !isDead)
         {
+            // Flip patrol direction
             moveDirection *= -1;
+
+            // Defensive: If chasing, stop at barrier instead of passing through
+            if (currentState == GhostState.Chasing)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
         }
     }
 
@@ -85,17 +111,15 @@ public class TurretGhost : Enemy
 
         if (firePoint == null)
         {
-            firePoint = transform.Find("orb_point"); // looks for a child named orb_point
+            firePoint = transform.Find("orb_point");
         }
-
 
         if (projectilePrefab != null && firePoint != null && player != null)
         {
             GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
-            // Always shoot directly at player, regardless of facing
-            Vector2 dir = (player.position + firePoint.position).normalized;
-
+            // Shoot at player
+            Vector2 dir = (player.position - firePoint.position).normalized;
             proj.GetComponent<Projectile>().SetVelocity(dir * projectileSpeed);
         }
 
