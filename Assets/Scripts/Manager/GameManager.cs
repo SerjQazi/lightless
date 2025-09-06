@@ -1,17 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using System.Collections; // Needed for IEnumerator coroutines
+using System.Collections;
 
-/// <summary>
-/// GameManager is responsible for:
-///  - Managing the overall game state (Title, Playing, GameOver)
-///  - Tracking score and player lives
-///  - Spawning and respawning the player
-///  - Scene transitions
-/// It uses the Singleton pattern so only one instance exists.
-/// </summary>
-[DefaultExecutionOrder(-10)] // Makes sure this initializes before most other scripts
+[DefaultExecutionOrder(-10)]
 public class GameManager : MonoBehaviour
 {
     #region Singleton Pattern
@@ -35,28 +27,24 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Game State
-    public enum GameState
-    {
-        Title,     // Title menu scene
-        Playing,   // Actively playing the game
-        GameOver   // Game over screen
-    }
-
+    public enum GameState { Title, Playing, GameOver }
     public GameState currentState;
     #endregion
 
     #region Player
     [Header("Player Settings")]
-    public PlayerController playerPrefab;      // Prefab for creating the player
-    private PlayerController _playerInstance;  // Reference to the active player
-    private Vector3 currentCheckpoint;         // Last checkpoint position
+    public PlayerController playerPrefab;
+    private PlayerController _playerInstance;
+    private Vector3 currentCheckpoint;
 
     public event Action<PlayerController> OnPlayerControllerCreated;
     #endregion
 
     #region Respawn
     [Header("Respawn Settings")]
-    [SerializeField] private Transform RespawnPoint; // Default respawn location in the scene
+    [SerializeField] private Transform RespawnPoint;
+    [SerializeField] private float respawnDelay = 3f;
+    [SerializeField] private float waterDeathDelay = 5f;
     #endregion
 
     #region Score & Lives
@@ -78,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void SetLives(int newLives)
     {
-        if (newLives < 0)
+        if (newLives <= 0)   // changed from < 0 so 0 triggers GameOver
         {
             _lives = 0;
             Debug.Log("[GameManager] Game Over! No lives left.");
@@ -87,8 +75,7 @@ public class GameManager : MonoBehaviour
         else if (newLives < _lives)
         {
             _lives = newLives;
-            Debug.Log("[GameManager] Ouch! Lost a life.");
-            Respawn();
+            Debug.Log("[GameManager] Lost a life.");
         }
         else if (newLives > maxLives)
         {
@@ -98,11 +85,117 @@ public class GameManager : MonoBehaviour
         else
         {
             _lives = newLives;
-            Debug.Log("[GameManager] Lives updated.");
         }
 
         Debug.Log($"[GameManager] Current Lives: {_lives}");
         OnLivesChanged?.Invoke(_lives);
+    }
+    #endregion
+
+    #region Powerups
+    private Coroutine jumpForceChange = null;
+    private int defaultJumpForce = 8;
+    private int boostedJumpForce = 14;
+    private float boostDuration = 5f;
+
+    // Called by pickups to activate jump boost
+    public void ActivateJumpForceChange()
+    {
+        if (_playerInstance == null) return;
+
+        if (jumpForceChange != null)
+        {
+            StopCoroutine(jumpForceChange);
+            jumpForceChange = null;
+            _playerInstance.jumpForce = defaultJumpForce;
+        }
+
+        jumpForceChange = StartCoroutine(ChangeJumpForce());
+    }
+
+    private IEnumerator ChangeJumpForce()
+    {
+        _playerInstance.jumpForce = boostedJumpForce;
+        Debug.Log("💥 Jump force increased!");
+        yield return new WaitForSeconds(boostDuration);
+
+        _playerInstance.jumpForce = defaultJumpForce;
+        Debug.Log("⏳ Jump force reset.");
+        jumpForceChange = null;
+    }
+    #endregion
+
+    #region Death & Respawn
+    // --- Called by PlayerController when hitting a "Death" collider ---
+    public void HandlePlayerDeath()
+    {
+        Debug.Log("[GameManager] Player hit a death zone.");
+        SetLives(_lives - 1);
+        if (_lives > 0)
+            StartCoroutine(RespawnAfterDelay(respawnDelay));
+    }
+
+    // --- Called by PlayerController when hitting "Water" ---
+    public void HandleWaterDeath()
+    {
+        Debug.Log("[GameManager] Player drowned.");
+        SetLives(_lives - 1);
+        if (_lives > 0)
+            StartCoroutine(WaterDeathSequence());
+    }
+
+    private IEnumerator RespawnAfterDelay(float delay)
+    {
+        if (_playerInstance != null)
+        {
+            // Hide and disable player
+            SpriteRenderer sr = _playerInstance.GetComponent<SpriteRenderer>();
+            Rigidbody2D rb = _playerInstance.GetComponent<Rigidbody2D>();
+            sr.enabled = false;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+
+            yield return new WaitForSeconds(delay);
+
+            // Respawn
+            Vector3 respawnPos = currentCheckpoint != Vector3.zero
+                ? currentCheckpoint
+                : (RespawnPoint != null ? RespawnPoint.position : Vector3.zero);
+
+            _playerInstance.transform.position = respawnPos;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            sr.enabled = true;
+
+            Debug.Log($"[GameManager] Player respawned at {respawnPos}");
+        }
+    }
+
+    private IEnumerator WaterDeathSequence()
+    {
+        if (_playerInstance != null)
+        {
+            Animator animator = _playerInstance.GetComponent<Animator>();
+            SpriteRenderer sr = _playerInstance.GetComponent<SpriteRenderer>();
+            Rigidbody2D rb = _playerInstance.GetComponent<Rigidbody2D>();
+
+            // Play drowning struggle animation
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            animator.SetTrigger("struggleInWater");
+
+            yield return new WaitForSeconds(waterDeathDelay);
+
+            // Respawn
+            sr.enabled = false;
+            Vector3 respawnPos = currentCheckpoint != Vector3.zero
+                ? currentCheckpoint
+                : (RespawnPoint != null ? RespawnPoint.position : Vector3.zero);
+
+            _playerInstance.transform.position = respawnPos;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            sr.enabled = true;
+
+            Debug.Log($"[GameManager] Player respawned after drowning at {respawnPos}");
+        }
     }
     #endregion
 
@@ -112,30 +205,20 @@ public class GameManager : MonoBehaviour
         SetState(GameState.GameOver);
     }
 
-    private void Respawn()
-    {
-        if (_playerInstance != null)
-        {
-            Vector3 respawnPos = currentCheckpoint != Vector3.zero
-                ? currentCheckpoint
-                : (RespawnPoint != null ? RespawnPoint.position : Vector3.zero);
-
-            _playerInstance.transform.position = respawnPos;
-            Debug.Log($"[GameManager] Player respawned at {respawnPos}");
-        }
-        else
-        {
-            Debug.LogWarning("[GameManager] Tried to respawn, but no player instance exists.");
-        }
-    }
-
     public void StartLevel(Vector3 startPosition)
     {
         currentCheckpoint = startPosition;
         _playerInstance = Instantiate(playerPrefab, currentCheckpoint, Quaternion.identity);
-
         Debug.Log($"[GameManager] Player spawned at {startPosition}");
         OnPlayerControllerCreated?.Invoke(_playerInstance);
+    }
+
+    // NEW: Reset stats method (makes assignment clearer)
+    public void ResetStats()
+    {
+        _lives = maxLives;
+        _score = 0;
+        Debug.Log("[GameManager] Stats reset: Lives=" + _lives + " Score=" + _score);
     }
 
     public void SetState(GameState newState)
@@ -150,9 +233,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Playing:
-                _lives = maxLives;
-                _score = 0;
-                Debug.Log("[GameManager] Starting game: lives and score reset.");
+                ResetStats();   // use new reset method
                 SceneManager.LoadScene("GameScene");
                 StartCoroutine(AssignRespawnPointAfterSceneLoad());
                 break;
@@ -163,56 +244,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private IEnumerator AssignRespawnPointAfterSceneLoad()
-    //{
-    //    yield return null;
-
-    //    GameObject found = GameObject.Find("RespawnPoint");
-    //    if (found != null)
-    //    {
-    //        RespawnPoint = found.transform;
-    //        Debug.Log("[GameManager] RespawnPoint assigned: " + RespawnPoint.position);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("[GameManager] RespawnPoint not found in GameScene!");
-    //    }
-    //}
-
     private IEnumerator AssignRespawnPointAfterSceneLoad()
     {
-        // Wait one frame for the new scene to load
         yield return null;
 
         GameObject found = GameObject.Find("RespawnPoint");
         if (found != null)
         {
             RespawnPoint = found.transform;
-            Debug.Log("RespawnPoint assigned: " + RespawnPoint.position);
+            Debug.Log("[GameManager] RespawnPoint assigned: " + RespawnPoint.position);
         }
         else
         {
-            Debug.LogError("RespawnPoint not found in GameScene!");
+            Debug.LogError("[GameManager] RespawnPoint not found in GameScene!");
+        }
+
+        // --- Ensure we always have a player instance ---
+        if (_playerInstance == null)
+        {
+            _playerInstance = FindObjectOfType<PlayerController>();
+            if (_playerInstance != null)
+            {
+                Debug.Log("[GameManager] Found player in scene.");
+                OnPlayerControllerCreated?.Invoke(_playerInstance);
+            }
         }
     }
 
-    public void LoadTitleMenu()
-    {
-        Debug.Log("[GameManager] Returning to Title Menu.");
-        SetState(GameState.Title);
-    }
-
-    public void StartGame()
-    {
-        Debug.Log("[GameManager] Starting Game.");
-        SetState(GameState.Playing);
-    }
+    public void LoadTitleMenu() => SetState(GameState.Title);
+    public void StartGame() => SetState(GameState.Playing);
 
     public void ExitGame()
     {
         Debug.Log("[GameManager] Quitting Game.");
         Application.Quit();
-
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
@@ -220,11 +285,25 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Unity Callbacks
+    private void Start()
+    {
+        // Fallback for manually placed player
+        if (_playerInstance == null)
+        {
+            _playerInstance = FindObjectOfType<PlayerController>();
+            if (_playerInstance != null)
+            {
+                Debug.Log("[GameManager] Found player in scene at Start.");
+                OnPlayerControllerCreated?.Invoke(_playerInstance);
+            }
+        }
+    }
+
     private void Update()
     {
         if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("[GameManager] Escape pressed during GameOver → Loading Title Menu.");
+            Debug.Log("[GameManager] Escape pressed → Back to Title.");
             LoadTitleMenu();
         }
     }
