@@ -15,12 +15,12 @@ public class Pickups : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Animator pickupAnimator = GetComponent<Animator>();
+            //Animator pickupAnimator = GetComponent<Animator>();
 
-            if (pickupAnimator != null)
-            {
-                pickupAnimator.SetTrigger("PickupGet");
-            }
+            //if (pickupAnimator != null)
+            //{
+            //    pickupAnimator.SetTrigger("PickupGet");
+            //}
 
             switch (pickupType)
             {

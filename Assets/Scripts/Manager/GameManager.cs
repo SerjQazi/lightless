@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
         // --- Ensure we always have a player instance ---
         if (_playerInstance == null)
         {
-            _playerInstance = FindObjectOfType<PlayerController>();
+            _playerInstance = FindAnyObjectByType<PlayerController>();
             if (_playerInstance != null)
             {
                 Debug.Log("[GameManager] Found player in scene.");
@@ -290,7 +290,7 @@ public class GameManager : MonoBehaviour
         // Fallback for manually placed player
         if (_playerInstance == null)
         {
-            _playerInstance = FindObjectOfType<PlayerController>();
+            _playerInstance = FindAnyObjectByType<PlayerController>();
             if (_playerInstance != null)
             {
                 Debug.Log("[GameManager] Found player in scene at Start.");

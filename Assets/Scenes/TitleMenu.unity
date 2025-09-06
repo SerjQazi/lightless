@@ -343,7 +343,9 @@ MonoBehaviour:
   currentState: 0
   playerPrefab: {fileID: 0}
   RespawnPoint: {fileID: 0}
-  maxLives: 9
+  respawnDelay: 3
+  waterDeathDelay: 5
+  maxLives: 3
 --- !u!4 &1050429304
 Transform:
   m_ObjectHideFlags: 0
