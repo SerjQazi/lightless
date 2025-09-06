@@ -5,11 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Respawn Settings")]
-    [SerializeField] private Transform respawnPoint;
-    [SerializeField] private float respawnDelay = 3f;
-    [SerializeField] private float waterDeathDelay = 5f;
-
     [Header("Combat Settings")]
     [SerializeField] private GameObject clawHitbox;
     [SerializeField] private float clawCooldown = 0.5f;
@@ -21,62 +16,12 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 4f;
     public float runSpeed = 6f;
     private float currentSpeed;
-    private int facingSign = 1; // 1 = right, -1 = left
+    private int facingSign = 1;
 
     [Header("Jump Settings")]
     public int jumpForce = 8;
     public int jumpLimit = 2;
     private int jumpCount = 0;
-
-    // Stats
-    private int _score = 0;
-    private int _lives = 3;
-    public int maxLives = 9;
-
-    public int Score
-    {
-        get => _score;
-        set => _score = Mathf.Max(0, value);
-    }
-
-    public int Lives
-    {
-        get => _lives;
-        set
-        {
-            if (value < 0)
-            {
-                Debug.Log("Game Over! No lives left.");
-                _lives = 0;
-            }
-            else if (value > maxLives) _lives = maxLives;
-            else _lives = value;
-        }
-    }
-
-    // Powerups
-    private Coroutine jumpForceChange = null;
-
-    public void ActivateJumpForceChange()
-    {
-        if (jumpForceChange != null)
-        {
-            StopCoroutine(jumpForceChange);
-            jumpForceChange = null;
-            jumpForce = 8;
-        }
-        jumpForceChange = StartCoroutine(ChangeJumpForce());
-    }
-
-    private IEnumerator ChangeJumpForce()
-    {
-        jumpForce = 14;
-        Debug.Log("💥 Jump force increased!");
-        yield return new WaitForSeconds(5f);
-        jumpForce = 8;
-        Debug.Log("⏳ Jump force reset.");
-        jumpForceChange = null;
-    }
 
     // References
     private Rigidbody2D rb;
@@ -86,7 +31,6 @@ public class PlayerController : MonoBehaviour
     private Shoot shoot;
 
     private bool wasGroundedLastFrame = false;
-    private bool isDead = false;
 
     void Start()
     {
@@ -106,8 +50,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return;
-
         bool isGrounded = groundCheck != null && groundCheck.IsGrounded;
         float hValue = Input.GetAxisRaw("Horizontal");
 
@@ -130,7 +72,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canClaw)
         {
             animator.SetTrigger("attack");
-            StartClawAttack(); // hitbox shows up
+            StartClawAttack();
             StartCoroutine(ClawCooldownRoutine());
         }
 
@@ -151,7 +93,7 @@ public class PlayerController : MonoBehaviour
         wasGroundedLastFrame = isGrounded;
     }
 
-    private float clawLeftOffset = 0.3f; // tweak in Inspector
+    private float clawLeftOffset = 0.3f;
 
     private void UpdateClawHitboxFacing()
     {
@@ -160,7 +102,7 @@ public class PlayerController : MonoBehaviour
         Vector3 pos = clawHitboxDefaultLocalPos;
         pos.x = Mathf.Abs(pos.x) * facingSign;
         if (facingSign == -1)
-            pos.x += clawLeftOffset; // nudges it closer when facing left
+            pos.x += clawLeftOffset;
 
         clawHitbox.transform.localPosition = pos;
     }
@@ -194,43 +136,47 @@ public class PlayerController : MonoBehaviour
         IsAttacking = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => HandleDeathCollision(collision.gameObject);
-    private void OnCollisionEnter2D(Collision2D collision) => HandleDeathCollision(collision.gameObject);
+    // --- NEW: Collision handling just calls GameManager ---
+    private void OnTriggerEnter2D(Collider2D collision) => HandleCollision(collision.gameObject);
+    private void OnCollisionEnter2D(Collision2D collision) => HandleCollision(collision.gameObject);
 
-    private void HandleDeathCollision(GameObject obj)
+    private void HandleCollision(GameObject obj)
     {
-        if (obj.CompareTag("Death")) StartCoroutine(RespawnAfterDelay(respawnDelay, "Player died!"));
-        else if (obj.CompareTag("Water")) StartCoroutine(WaterDeathSequence());
+        //Debug.Log("Collided with: " + obj.tag);
+
+        if (obj.CompareTag("Death"))
+            GameManager.Instance?.HandlePlayerDeath();
+        else if (obj.CompareTag("Water"))
+            GameManager.Instance?.HandleWaterDeath();
+        Debug.Log("Collided with: " + obj.tag);
+
     }
 
-    private IEnumerator WaterDeathSequence()
+    // --- Respawn Reset ---
+    public void ResetPlayer()
     {
-        isDead = true;
         rb.linearVelocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        animator.SetTrigger("struggleInWater");
-        yield return new WaitForSeconds(waterDeathDelay);
-
-        sr.enabled = false;
-        transform.position = respawnPoint.position;
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        sr.enabled = true;
-        isDead = false;
+        jumpCount = 0;
+        animator.SetTrigger("Respawn");
     }
 
-    private IEnumerator RespawnAfterDelay(float delay, string deathMessage)
+    // -------------------------------------------------
+    // TEMP WRAPPERS for compatibility with old scripts
+    // -------------------------------------------------
+    public int Lives
     {
-        isDead = true;
-        rb.linearVelocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        get => GameManager.Instance.Lives;
+        set => GameManager.Instance.SetLives(value);
+    }
 
-        sr.enabled = false;
-        yield return new WaitForSeconds(delay);
+    public int Score
+    {
+        get => GameManager.Instance.Score;
+        set => GameManager.Instance.AddScore(value - GameManager.Instance.Score);
+    }
 
-        transform.position = respawnPoint.position;
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        sr.enabled = true;
-        isDead = false;
+    public void ActivateJumpForceChange()
+    {
+        GameManager.Instance.ActivateJumpForceChange();
     }
 }

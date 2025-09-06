@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class Pickups : MonoBehaviour
 {
     public enum PickupType
@@ -8,38 +9,38 @@ public class Pickups : MonoBehaviour
         Powerup = 2
     }
 
-    public PickupType pickupType = PickupType.Life; // Type of the pickup
+    public PickupType pickupType = PickupType.Life;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerController pc = collision.GetComponent<PlayerController>();
-            Animator animator = collision.GetComponent<Animator>();
-            Animator pickupAnimator = GetComponent<Animator>();
+            //Animator pickupAnimator = GetComponent<Animator>();
 
-            if (pickupAnimator != null)
-            {
-                pickupAnimator.SetTrigger("PickupGet");
-            }
+            //if (pickupAnimator != null)
+            //{
+            //    pickupAnimator.SetTrigger("PickupGet");
+            //}
 
             switch (pickupType)
             {
                 case PickupType.Life:
-                    pc.Lives++;
-                    Debug.Log("Life collected! Current lives: " + pc.Lives);
+                    GameManager.Instance.SetLives(GameManager.Instance.Lives + 1);
+                    Debug.Log("Life collected! Current lives: " + GameManager.Instance.Lives);
                     break;
+
                 case PickupType.Score:
-                    pc.Score++;
-                    //if (animator != null)
-                    Debug.Log("Score collected! Current score: " + pc.Score);
+                    GameManager.Instance.AddScore(1);
+                    Debug.Log("Score collected! Current score: " + GameManager.Instance.Score);
                     break;
+
                 case PickupType.Powerup:
-                    pc.ActivateJumpForceChange();
+                    GameManager.Instance.ActivateJumpForceChange();
+                    Debug.Log("Powerup collected! Jump force temporarily boosted.");
                     break;
             }
 
-            Destroy(gameObject, 1f); // Destroy the pickup after collection
+            Destroy(gameObject, 1f);
         }
     }
 }
