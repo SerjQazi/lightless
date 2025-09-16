@@ -44,13 +44,10 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Loading Menu...");
         Time.timeScale = 1f;
         SceneManager.LoadScene("TitleMenu");
-        //SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
-        //Debug.Log("Quitting Game...");
-        //Application.Quit();
         Debug.Log("Quitting game...");
         Application.Quit();
     #if UNITY_EDITOR
