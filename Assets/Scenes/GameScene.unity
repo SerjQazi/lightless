@@ -3964,6 +3964,9 @@ MonoBehaviour:
   RespawnPoint: {fileID: 712898408}
   respawnDelay: 3
   waterDeathDelay: 5
+  masterMixGroup: {fileID: 24300002, guid: 21cc69b79b73b874da7166334fc68cae, type: 2}
+  sfxMixGroup: {fileID: 8924714664513232313, guid: 21cc69b79b73b874da7166334fc68cae, type: 2}
+  musicMixGroup: {fileID: -4268627166431020650, guid: 21cc69b79b73b874da7166334fc68cae, type: 2}
   maxLives: 3
   invincibleTime: 1
 --- !u!1 &1207909059
