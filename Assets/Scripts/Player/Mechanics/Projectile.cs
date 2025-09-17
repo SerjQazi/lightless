@@ -43,16 +43,29 @@ public class Projectile : MonoBehaviour
     {
         TriggerImpact();
 
-        // Apply damage only if this is a player projectile hitting an enemy
         if (projectileType == ProjectileType.Player)
         {
+            // Player projectile hitting enemy
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(10);
+                enemy.TakeDamage(1);
             }
         }
+
+        else if (projectileType == ProjectileType.Enemy)
+        {
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                Debug.Log("Player hit by enemy projectile!");
+                GameManager.Instance?.HandlePlayerHitByProjectile(1);
+            }
+        }
+
+
     }
+
 
     private IEnumerator LifetimeCoroutine()
     {

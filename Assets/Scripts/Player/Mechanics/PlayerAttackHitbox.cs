@@ -9,9 +9,15 @@ public class PlayerAttackHitbox : MonoBehaviour
     {
         hitboxCollider = GetComponent<Collider2D>();
         if (hitboxCollider == null)
+        {
             Debug.LogError("No Collider2D found on ClawHitbox!");
+        }
         else
+        {
             hitboxCollider.isTrigger = true; // ensure it's a trigger
+        }
+          
+            
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -28,6 +34,10 @@ public class PlayerAttackHitbox : MonoBehaviour
         else
         {
             Debug.Log($"⚠️ Claw hitbox triggered on non-enemy object: {other.name}");
+            //Destroy(gameObject, 0.2f); // auto-destroy after short time
+
+            //gamobject set active to false after 2 seconds
+            //Invoke("DeactivateHitbox", 0.2f);
         }
     }
 

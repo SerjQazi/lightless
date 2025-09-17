@@ -21,7 +21,7 @@ public abstract class Enemy : MonoBehaviour
         if (maxHealth <= 0)
         {
             Debug.LogError("Max health must be greater than 0. Setting to default value of 5.");
-            maxHealth = 5; // Fixed typo (was 6)
+            maxHealth = 5; 
         }
 
         health = maxHealth;

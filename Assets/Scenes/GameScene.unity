@@ -2652,6 +2652,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkerEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9111358452898754388, guid: 4ada19813611a0f4e84ced1630a2dc41, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3878,6 +3882,90 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.864319, y: 0.68969727}
   m_EdgeRadius: 0
+--- !u!1001 &1192870520
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7244251
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5600991
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6760931
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655008998288481526, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6361386176925511763, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      propertyPath: m_Name
+      value: CanvasManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6361386176925511763, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1192870522}
+  m_SourcePrefab: {fileID: 100100000, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+--- !u!1 &1192870521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6361386176925511763, guid: 2b9151d39eb3ea84ca1b9764be1ea473, type: 3}
+  m_PrefabInstance: {fileID: 1192870520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1192870522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192870521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e0ca000ba9218498a59672a9f4568a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  playerPrefab: {fileID: 1409637418}
+  RespawnPoint: {fileID: 712898408}
+  respawnDelay: 3
+  waterDeathDelay: 5
+  maxLives: 3
+  invincibleTime: 1
 --- !u!1 &1207909059
 GameObject:
   m_ObjectHideFlags: 0
@@ -10915,6 +11003,10 @@ PrefabInstance:
       propertyPath: detectionRadius
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7775603595907658567, guid: 3d3f095dfd4241e479ae7e29e8998d55, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10976,6 +11068,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkerEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9111358452898754388, guid: 4ada19813611a0f4e84ced1630a2dc41, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11004,3 +11100,4 @@ SceneRoots:
   - {fileID: 2716300240171350327}
   - {fileID: 990943485}
   - {fileID: 18456087}
+  - {fileID: 1192870520}
