@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Collider2D))]
@@ -29,6 +30,12 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private GroundCheck groundCheck;
     private Shoot shoot;
+
+    //Audio
+    //public AudioClip jumpSound;
+    //public AudioClip stompSound;
+    //public AudioClip deathSound;
+    //private AudioSource audioSource;
 
     private bool wasGroundedLastFrame = false;
 
@@ -72,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canClaw)
         {
             animator.SetTrigger("attack");
-            StartClawAttack();
+            //StartClawAttack();
             StartCoroutine(ClawCooldownRoutine());
         }
 
@@ -120,12 +127,13 @@ public class PlayerController : MonoBehaviour
     {
         IsAttacking = true;
         if (clawHitbox != null) clawHitbox.SetActive(true);
+        Invoke("EndClawAttack", 0.2f); // auto-end attack after short time
+
     }
 
     public void EndClawAttack()
     {
-        IsAttacking = false;
-        if (clawHitbox != null) clawHitbox.SetActive(false);
+        clawHitbox.SetActive(false);
     }
 
     private IEnumerator ClawCooldownRoutine()
@@ -138,17 +146,37 @@ public class PlayerController : MonoBehaviour
 
     // --- NEW: Collision handling just calls GameManager ---
     private void OnTriggerEnter2D(Collider2D collision) => HandleCollision(collision.gameObject);
+    
     private void OnCollisionEnter2D(Collision2D collision) => HandleCollision(collision.gameObject);
-
+    
     private void HandleCollision(GameObject obj)
     {
-        //Debug.Log("Collided with: " + obj.tag);
-
+        if (obj.CompareTag("Enemy"))
+        {
+            GameManager.Instance?.HandlePlayerHitByEnemy();
+            //if (IsAttacking)
+            //{
+            //    // Defeat enemy
+            //    Enemy enemy = obj.GetComponent<Enemy>();
+            //    if (enemy != null)
+            //    {
+            //        enemy.TakeDamage(1);
+            //        rb.AddForce(Vector2.up * (jumpForce / 2), ForceMode2D.Impulse); // bounce up a bit
+            //    }
+            //}
+            //else
+            //{
+            //GameManager.Instance?.HandlePlayerHitByEnemy();
+            //}
+        }
         if (obj.CompareTag("Death"))
             GameManager.Instance?.HandlePlayerDeath();
         else if (obj.CompareTag("Water"))
             GameManager.Instance?.HandleWaterDeath();
-        Debug.Log("Collided with: " + obj.tag);
+        //else if (obj.CompareTag("Enemy"))
+        //    GameManager.Instance?.HandlePlayerHitByEnemy();
+        //else if (obj.CompareTag("Projectile"))
+        //    GameManager.Instance?.HandlePlayerHitByProjectile(1);
 
     }
 

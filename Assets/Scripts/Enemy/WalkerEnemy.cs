@@ -198,4 +198,14 @@ public class WalkerEnemy : Enemy
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + offset, attackRadius);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !isDead)
+        {
+            Debug.Log("[WalkerEnemy] Collided with player, dealing 1 damage.");
+            GameManager.Instance?.HandlePlayerHitByEnemy(1);
+        }
+    }
+
 }

@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using UnityEngine.Audio;
 
 [DefaultExecutionOrder(-10)]
 public class GameManager : MonoBehaviour
@@ -45,6 +46,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform RespawnPoint;
     [SerializeField] private float respawnDelay = 3f;
     [SerializeField] private float waterDeathDelay = 5f;
+    #endregion
+
+    #region Audio
+    public AudioMixerGroup masterMixGroup;
+    public AudioMixerGroup sfxMixGroup;
+    public AudioMixerGroup musicMixGroup;
+
     #endregion
 
     #region Score & Lives
@@ -97,6 +105,7 @@ public class GameManager : MonoBehaviour
     private int defaultJumpForce = 8;
     private int boostedJumpForce = 14;
     private float boostDuration = 5f;
+    private int damage = 1;
 
     // Called by pickups to activate jump boost
     public void ActivateJumpForceChange()
@@ -143,6 +152,63 @@ public class GameManager : MonoBehaviour
         if (_lives > 0)
             StartCoroutine(WaterDeathSequence());
     }
+
+    public void HandlePlayerHitByProjectile(int damage = 1)
+    {
+        Debug.Log($"[GameManager] Player hit by projectile! Damage: {damage}");
+
+        int newLives = _lives - damage;
+        SetLives(newLives);
+
+        Debug.Log($"[GameManager] Player lives after hit: {_lives}");
+
+        if (_lives > 0)
+        {
+            Debug.Log("Player took damage but is still alive.");
+            _playerInstance.GetComponent<Animator>()?.SetTrigger("Impact");
+        }
+        else
+        {
+            Debug.Log("💀 Player has died from projectile hits.");
+            GameOver();
+        }
+    }
+
+    //---------------------------------------------
+    private bool isInvincible = false;
+    [SerializeField] private float invincibleTime = 1.0f;
+
+    public void HandlePlayerHitByEnemy(int damage = 1)
+    {
+        if (isInvincible) return;
+
+        Debug.Log($"[GameManager] Player hit by enemy! Damage: {damage}");
+
+        SetLives(_lives - damage);
+        Debug.Log($"[GameManager] Lives after hit: {_lives}");
+
+        if (_lives > 0)
+        {
+            _playerInstance?.GetComponent<Animator>()?.SetTrigger("Impact");
+            StartCoroutine(InvincibilityCoroutine());
+        }
+        else
+        {
+            Debug.Log("💀 Player has died.");
+            GameOver();
+        }
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibleTime);
+        isInvincible = false;
+    }
+//-------------------------------------------------------
+
+
+
 
     private IEnumerator RespawnAfterDelay(float delay)
     {
