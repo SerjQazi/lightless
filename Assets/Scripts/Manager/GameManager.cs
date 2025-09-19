@@ -34,9 +34,9 @@ public class GameManager : MonoBehaviour
 
     #region Player
     [Header("Player Settings")]
-    public PlayerController playerPrefab;
-    private PlayerController _playerInstance;
-    private Vector3 currentCheckpoint;
+    public PlayerController playerPrefab;   // prefab to spawn when starting a level
+    private PlayerController _playerInstance;   // reference to the active player instance
+    private Vector3 currentCheckpoint;  // keeps track of the last checkpoint
 
     public event Action<PlayerController> OnPlayerControllerCreated;
     #endregion
@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     public AudioMixerGroup masterMixGroup;
     public AudioMixerGroup sfxMixGroup;
     public AudioMixerGroup musicMixGroup;
-
     #endregion
 
     #region Score & Lives
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void SetLives(int newLives)
     {
-        if (newLives <= 0)   // changed from < 0 so 0 triggers GameOver
+        if (newLives <= 0)   // trigger GameOver when reaching 0
         {
             _lives = 0;
             Debug.Log("[GameManager] Game Over! No lives left.");
@@ -114,11 +113,13 @@ public class GameManager : MonoBehaviour
 
         if (jumpForceChange != null)
         {
+            // cancel old boost if active
             StopCoroutine(jumpForceChange);
             jumpForceChange = null;
             _playerInstance.jumpForce = defaultJumpForce;
         }
 
+        // start new boost
         jumpForceChange = StartCoroutine(ChangeJumpForce());
     }
 
@@ -135,16 +136,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Death & Respawn
-    // --- Called by PlayerController when hitting a "Death" collider ---
     public void HandlePlayerDeath()
     {
         Debug.Log("[GameManager] Player hit a death zone.");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.Death);
         SetLives(_lives - 1);
         if (_lives > 0)
-            StartCoroutine(RespawnAfterDelay(respawnDelay));
+            
+        StartCoroutine(RespawnAfterDelay(respawnDelay));
     }
 
-    // --- Called by PlayerController when hitting "Water" ---
     public void HandleWaterDeath()
     {
         Debug.Log("[GameManager] Player drowned.");
@@ -170,17 +171,17 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("💀 Player has died from projectile hits.");
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.Death);
             GameOver();
         }
     }
 
-    //---------------------------------------------
     private bool isInvincible = false;
     [SerializeField] private float invincibleTime = 1.0f;
 
     public void HandlePlayerHitByEnemy(int damage = 1)
     {
-        if (isInvincible) return;
+        if (isInvincible) return; // ignore hits while invincible
 
         Debug.Log($"[GameManager] Player hit by enemy! Damage: {damage}");
 
@@ -195,6 +196,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("💀 Player has died.");
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.Death);
             GameOver();
         }
     }
@@ -205,10 +207,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(invincibleTime);
         isInvincible = false;
     }
-//-------------------------------------------------------
-
-
-
 
     private IEnumerator RespawnAfterDelay(float delay)
     {
@@ -279,7 +277,6 @@ public class GameManager : MonoBehaviour
         OnPlayerControllerCreated?.Invoke(_playerInstance);
     }
 
-    // NEW: Reset stats method (makes assignment clearer)
     public void ResetStats()
     {
         _lives = maxLives;
@@ -296,24 +293,33 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Title:
                 SceneManager.LoadScene("TitleMenu");
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.MenuTrack);
                 break;
 
             case GameState.Playing:
-                ResetStats();   // use new reset method
+                ResetStats();
                 SceneManager.LoadScene("GameScene");
                 StartCoroutine(AssignRespawnPointAfterSceneLoad());
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.BackgroundTrack);
                 break;
 
             case GameState.GameOver:
                 SceneManager.LoadScene("GameOverMenu");
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GameOverTrack);
                 break;
         }
     }
 
+    // ------------------- NEW SECTION -------------------
+    [Header("Canvas Manager Setup")]
+    [SerializeField] private CanvasManager canvasManagerPrefab;  // drag prefab here in inspector
+    private CanvasManager _canvasManager; // runtime instance
+
     private IEnumerator AssignRespawnPointAfterSceneLoad()
     {
-        yield return null;
+        yield return null; // wait one frame so scene objects are initialized
 
+        // --- Assign respawn point ---
         GameObject found = GameObject.Find("RespawnPoint");
         if (found != null)
         {
@@ -335,7 +341,24 @@ public class GameManager : MonoBehaviour
                 OnPlayerControllerCreated?.Invoke(_playerInstance);
             }
         }
+
+        // --- Ensure we always have a CanvasManager ---
+        _canvasManager = FindAnyObjectByType<CanvasManager>();
+        if (_canvasManager == null && canvasManagerPrefab != null)
+        {
+            _canvasManager = Instantiate(canvasManagerPrefab);
+            Debug.Log("[GameManager] CanvasManager instantiated in GameScene.");
+        }
+        else if (_canvasManager != null)
+        {
+            Debug.Log("[GameManager] CanvasManager already present in scene.");
+        }
+        else
+        {
+            Debug.LogWarning("[GameManager] No CanvasManager prefab assigned!");
+        }
     }
+    // ---------------------------------------------------
 
     public void LoadTitleMenu() => SetState(GameState.Title);
     public void StartGame() => SetState(GameState.Playing);
@@ -353,7 +376,7 @@ public class GameManager : MonoBehaviour
     #region Unity Callbacks
     private void Start()
     {
-        // Fallback for manually placed player
+        // Fallback for manually placed player in scene
         if (_playerInstance == null)
         {
             _playerInstance = FindAnyObjectByType<PlayerController>();
@@ -367,6 +390,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // quick way back to Title from GameOver
         if (currentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("[GameManager] Escape pressed → Back to Title.");
