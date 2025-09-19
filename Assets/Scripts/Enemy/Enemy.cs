@@ -34,6 +34,7 @@ public abstract class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.DeadEnemy);
             anim.SetTrigger("Death");
             Debug.Log($"☠️ {name} died!");
 
